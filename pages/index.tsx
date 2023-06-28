@@ -1,10 +1,14 @@
-import Form from "@/components/form";
+import Form from "@/public/components/form";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 
 export default function Home() {
-
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <Form/>
-    </div>
+    <ChakraProvider>
+      <Box
+        bgColor={"blackAlpha.50"}
+      >
+        <Form />
+      </Box>
+    </ChakraProvider>
   );
 }
