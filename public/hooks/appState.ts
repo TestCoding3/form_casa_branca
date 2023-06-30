@@ -5,13 +5,14 @@ type StatesProvider = {
   date: string;
   total: number;
   setTable: (table: DailyWorkersManagementForm[]) => void;
+  deleteInput: (index: number) => void;
 };
 
 const appState = create<StatesProvider>((set, get) => ({
   table: [],
   date: "",
   total: 0,
-  setTable: (newTable?: DailyWorkersManagementForm[]) => {
+  setTable: (newTable?) => {
     var sum = 0;
     newTable?.map((current) => {
       if (current.service === "Diária") {
@@ -24,6 +25,11 @@ const appState = create<StatesProvider>((set, get) => ({
       table: newTable,
       total: sum,
     }));
+  },
+  deleteInput: (index) => {
+    var newArray = get().table;
+    newArray.splice(index, 1);
+    get().setTable(newArray);
   },
 }));
 
