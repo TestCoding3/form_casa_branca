@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import appState from "../hooks/appState";
 import {
   Table,
@@ -11,16 +10,34 @@ import {
   Thead,
   Card,
   Tr,
+  Button,
 } from "@chakra-ui/react";
+import { api } from "../services/api";
+
+import { DeleteIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 
 export default function InputTable() {
-  const { table, total } = appState();
+  const [loading, setLoading] = useState(false);
+  const { table, total, deleteInput } = appState();
 
   const cost = (service: string, quantity: number) => {
     var cost = 0;
     service === "Diária" ? (cost = 80 * quantity) : (cost = 15 * quantity);
     return cost;
   };
+
+  const handleDelete = (index: number) => {
+    deleteInput(index);
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    const response = await api.post("api/submit", table);
+    console.log(response);
+    setLoading(false);
+  };
+
   return (
     <>
       {table && table.length > 0 && (
@@ -44,6 +61,7 @@ export default function InputTable() {
                   <Th>serviço</Th>
                   <Th>quantidade</Th>
                   <Th>valor</Th>
+                  <Th></Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -56,6 +74,11 @@ export default function InputTable() {
                       <Td textAlign={"right"}>{current.quantity}</Td>
                       <Td textAlign={"right"}>
                         {cost(current.service, current.quantity)}
+                      </Td>
+                      <Td textAlign={"right"}>
+                        <Button onClick={() => handleDelete(key)}>
+                          <DeleteIcon></DeleteIcon>
+                        </Button>
                       </Td>
                     </Tr>
                   );
@@ -72,6 +95,16 @@ export default function InputTable() {
               </Tfoot>
             </Table>
           </TableContainer>
+          <Button
+            colorScheme="green"
+            onClick={() => handleSubmit()}
+            disabled={loading}
+            h={12}
+            w="30%"
+            mt={4}
+          >
+            Gerar PDF
+          </Button>
         </Card>
       )}
     </>
