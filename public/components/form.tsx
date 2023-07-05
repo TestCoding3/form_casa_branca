@@ -11,7 +11,7 @@ import { object, string, number, date } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import Image from "next/image";
-import logo from "../images/logo.svg";
+import logo from "../../images/logo.svg";
 import appState from "../hooks/appState";
 import { useState } from "react";
 
