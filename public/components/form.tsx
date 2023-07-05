@@ -27,7 +27,7 @@ export default function Form() {
     ),
     service: string().required("Escolha o tipo de serviço."),
     quantity: number().required("Preencha a quantidade do serviço."),
-    paymentDay: date().required("Escolha a data de pagamento."),
+    paymentDay: string().required("Escolha a data de pagamento."),
   });
 
   const { control, handleSubmit } = useForm<DailyWorkersManagementForm>({
@@ -38,7 +38,7 @@ export default function Form() {
       bankInfo: "",
       service: "",
       quantity: 0,
-      paymentDay: undefined,
+      paymentDay: "",
     },
   });
 
@@ -66,7 +66,7 @@ export default function Form() {
 
   return (
     <Card
-      m={16}
+      className="lg:m-16 m-3"
       p={8}
       gap={4}
       shadow={"xl"}
@@ -185,7 +185,7 @@ export default function Form() {
 
       <Button
         h={12}
-        w="30%"
+        className="lg:w-1/3 w-1/2"
         onClick={handleSubmit(handleAdd)}
         isDisabled={loading}
         mt={4}
