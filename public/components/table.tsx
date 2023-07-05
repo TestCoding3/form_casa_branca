@@ -33,8 +33,11 @@ export default function InputTable() {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const response = await api.post("api/submit", table);
-    console.log(response);
+    try {
+      const response = await api.post("/api/submit", { table, discount: 0 });
+    } catch (error) {
+      console.log("Ocorreu um erro com seu download:", error);
+    }
     setLoading(false);
   };
 
@@ -42,7 +45,7 @@ export default function InputTable() {
     <>
       {table && table.length > 0 && (
         <Card
-          m={16}
+          className="lg:m-16 m-3"
           p={8}
           gap={4}
           shadow={"xl"}
@@ -98,12 +101,12 @@ export default function InputTable() {
           <Button
             colorScheme="green"
             onClick={() => handleSubmit()}
-            disabled={loading}
+            isDisabled={loading}
             h={12}
-            w="30%"
+            className="lg:w-1/3 w-1/2"
             mt={4}
           >
-            Gerar PDF
+            {loading ? "Baixando" : "Gerar PDF"}
           </Button>
         </Card>
       )}

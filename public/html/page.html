@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Controle de Diaristas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        font-family: 'Roboto', sans-serif;
+      }
+
+      div {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+      }
+
+      div img {
+        margin-right: 30px;
+      }
+      
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 10px;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .mini-table {
+        width: 30%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="{{logoSrc}}" alt="Logo" height="140" />
+      <h1>CONTROLE DE DIARISTAS</h1>
+    </div>
+    <table class="mini-table">
+      <thead>
+        <tr>
+          <th>INÍCIO DE SEMANA</th>
+          <th>FINAL DE SEMANA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{week.start}}</td>
+          <td>{{week.end}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th >DIARISTA</th>
+          <th >DADOS BANCÁRIOS</th>
+          <th >SERVIÇO</th>
+          <th >QTD</th>
+          <th >VALOR</th>
+        </tr>
+      
+        </tr>
+      </thead>
+      <tbody>
+        {{#each table}}
+        <tr>
+          <td>{{this.dailyWorker}}</td>
+          <td>{{this.bankInfo}}</td>
+          <td>{{this.service}}</td>
+          <td>{{this.quantity}}</td>
+          <td>{{this.total}}</td>
+        </tr>
+        {{/each}}
+        <tr>
+          <td colspan="4" style="text-align: left; font-weight: bold;">TOTAL SEM DESCONTO</td>
+          <td>{{total}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" style="text-align: left; font-weight: bold;">DESCONTO</td>
+          <td>{{discount}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" style="text-align: left; font-weight: bold;">TOTAL SEM DESCONTO</td>
+          <td>{{totalFinal}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>DATA DE PAGAMENTO: <span>{{paymentDay}}</span></p>
+  </body>
+</html>
