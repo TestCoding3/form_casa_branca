@@ -64,7 +64,7 @@ export default function handler(
         logoSrc,
       },
       path: "./output.pdf",
-      type: "",
+      type: "buffer",
     };
 
     var options = {
@@ -76,9 +76,8 @@ export default function handler(
     pdf
       .create(document, options)
       .then((result: any) => {
-        console.log(result);
-        // PDF created successfully, you can send a response or perform any other actions here
-        res.status(200).json({ message: "PDF created successfully" });
+        res.status(200);
+        res.send(result);
       })
       .catch((error: any) => {
         console.error(error);
