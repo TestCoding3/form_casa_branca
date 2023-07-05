@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 const pdf = require("pdf-creator-node");
 const fs = require("fs");
 const moment = require("moment");
+import path from "path";
 
 export default function handler(
   req: NextApiRequest,
@@ -14,7 +15,8 @@ export default function handler(
       return cost;
     };
 
-    var html = fs.readFileSync("public/html/page.html", "utf8");
+    const htmlPath = path.join(process.cwd(), "html", "page.html");
+    var html = fs.readFileSync(htmlPath, "utf8");
 
     var total = 0;
 
@@ -47,7 +49,8 @@ export default function handler(
 
     const paymentDay = moment(table[0].paymentDay).format("DD/MM/YYYY");
 
-    const logoB64Content = fs.readFileSync("public/images/logo.png", {
+    const logoPath = path.join(process.cwd(), "images", "logo.png");
+    const logoB64Content = fs.readFileSync(logoPath, {
       encoding: "base64",
     });
     const logoSrc = "data:image/jpeg;base64," + logoB64Content;
