@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/submit": {
+    "api/submit.js": {
       "includeFiles": "node_modules/phantomjs-prebuilt/lib/phantom/**"
     }
   }
