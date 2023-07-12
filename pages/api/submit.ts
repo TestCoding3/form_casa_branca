@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { DailyWorkersManagementForm } from "@/public/types/DailyWorkersManagementForm.interface";
 import moment from "moment";
 import path from "path";
 const PdfPrinter = require("pdfmake/src/printer");
 
-const normal = path.join(process.cwd(), "fonts ", "Roboto-Regular.ttf");
-const bold = path.join(process.cwd(), "fonts ", "Roboto-Medium.ttf");
+const normal = path.join(process.cwd(), "fonts", "Roboto-Regular.ttf");
+const bold = path.join(process.cwd(), "fonts", "Roboto-Medium.ttf");
 var fonts = {
   Roboto: {
     normal: normal,
@@ -12,16 +13,6 @@ var fonts = {
   },
 };
 const printer = new PdfPrinter(fonts);
-
-interface DailyWorkersManagementForm {
-  week: string;
-  dailyWorker: string;
-  bankInfo: string;
-  service: string;
-  quantity: number;
-  total: number;
-  paymentDay: string;
-}
 
 export default function handler(
   req: NextApiRequest,
@@ -73,20 +64,26 @@ export default function handler(
     const docDefinition = {
       content: [
         {
-          stack: [
+          columns: [
             {
               image: logoPath,
-              width: 140,
+              width: 80,
               alignment: "left",
-            },
-            {
-              text: "CONTROLE DE DIARISTAS",
-              fontSize: 24,
-              alignment: "center",
               margin: [0, 10],
             },
+            {
+              stack: [
+                {
+                  text: "CONTROLE DE DIARISTAS",
+                  fontSize: 24,
+                  alignment: "center",
+                  margin: [0, 10],
+                },
+              ],
+              alignment: "left",
+              width: "*",
+            },
           ],
-          style: "header",
         },
         {
           table: {
@@ -102,7 +99,7 @@ export default function handler(
         {
           table: {
             headerRows: 1,
-            widths: ["auto", "auto", "auto", "auto", "auto"],
+            widths: [170, 170, 80, "auto", "auto"],
             body: [
               [
                 { text: "DIARISTA", style: "tableHeader" },
@@ -176,6 +173,14 @@ export default function handler(
         boldTableCell: {
           bold: true,
           margin: [0, 5],
+        },
+        mainTable: {
+          margin: [0, 20, 0, 20],
+          fontSize: 10,
+          cellPadding: {
+            top: 5,
+            bottom: 5,
+          },
         },
       },
     };
