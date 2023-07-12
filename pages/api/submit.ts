@@ -2,10 +2,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import moment from "moment";
 import path from "path";
 const PdfPrinter = require("pdfmake/src/printer");
+
+const normal = path.join(process.cwd(), "fonts ", "Roboto-Regular.ttf");
+const bold = path.join(process.cwd(), "fonts ", "Roboto-Medium.ttf");
 var fonts = {
   Roboto: {
-    normal: "fonts/Roboto-Regular.ttf",
-    bold: "fonts/Roboto-Medium.ttf",
+    normal: normal,
+    bold: bold,
   },
 };
 const printer = new PdfPrinter(fonts);
